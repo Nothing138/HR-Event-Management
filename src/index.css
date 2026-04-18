@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables ─────────────────────────────────────── */
+:root {
+  --navy:    #1B2B6B;
+  --crimson: #C0392B;
+  --light:   #F4F6FB;
+  --dark:    #0d1535;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--light);
+  overflow-x: hidden;
+  color: #1a1a2e;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0f2f8; }
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
+
+/* ─── Typography ─────────────────────────────────────────── */
+.display-font { font-family: 'Cormorant Garamond', serif; }
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.86); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.07); }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 60px; }
+}
+@keyframes scrollDot {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(8px); opacity: 0.4; }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(30px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmerBar {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ─── Animation Utility Classes ─────────────────────────── */
+.anim-fadeUp    { animation: fadeUp    0.65s ease forwards; }
+.anim-fadeLeft  { animation: fadeLeft  0.65s ease forwards; }
+.anim-fadeRight { animation: fadeRight 0.65s ease forwards; }
+.anim-scaleIn   { animation: scaleIn   0.55s ease forwards; }
+.anim-hidden    { opacity: 0; }
+
+/* ─── Section Layout Helpers ─────────────────────────────── */
+.section-wrapper {
+  padding: 90px 6%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 3.8vw, 2.85rem);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+.section-divider {
+  width: 0;
+  height: 3px;
+  background: var(--crimson);
+  border-radius: 2px;
+  margin: 14px 0 22px;
+}
+.section-divider.grow { animation: lineGrow 0.6s 0.35s ease forwards; }
+.section-divider.center { margin-left: auto; margin-right: auto; }
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--crimson);
+  color: #fff;
+  border: none;
+  padding: 13px 30px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover {
+  background: #a5301f;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(192, 57, 43, 0.4);
+}
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.65);
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+.btn-navy {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  padding: 13px 30px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-navy:hover {
+  background: #142058;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(27,43,107,0.35);
+}
+
+/* ─── Form Inputs ────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  background: #fff;
+  border: 1px solid #dde2ef;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  color: #1a1a2e;
+  transition: border-color 0.22s, box-shadow 0.22s;
+}
+.form-input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(27,43,107,0.1);
+}
+.form-input::placeholder { color: #a0a8c0; }
+.form-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #7b88b8;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  transition: background 0.38s, box-shadow 0.38s;
+}
+.navbar.scrolled {
+  background: rgba(27,43,107,0.97);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 2px 22px rgba(27,43,107,0.28);
+}
+.nav-link {
+  color: rgba(255,255,255,0.85);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.035em;
+  cursor: pointer;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.22s;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px; width: 0;
+  background: var(--crimson);
+  transition: width 0.3s ease;
+}
+.nav-link:hover, .nav-link.active { color: #fff; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* ─── Service Cards ──────────────────────────────────────── */
+.srv-card {
+  background: var(--light);
+  border-radius: 14px;
+  padding: 28px 24px;
+  border: 1px solid rgba(27,43,107,0.07);
+  transition: transform 0.35s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.35s;
+  cursor: default;
+}
+.srv-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 24px 48px rgba(27,43,107,0.16);
+}
+.srv-card:hover .srv-icon-wrap {
+  background: var(--crimson) !important;
+  transform: scale(1.1) rotate(-5deg);
+}
+.srv-icon-wrap {
+  width: 52px; height: 52px;
+  border-radius: 13px;
+  background: rgba(27,43,107,0.09);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+/* ─── Gallery ────────────────────────────────────────────── */
+.gal-card {
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+}
+.gal-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.gal-card:hover img { transform: scale(1.08); }
+.gal-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(27,43,107,0.88) 100%);
+  opacity: 0;
+  transition: opacity 0.32s;
+  display: flex; align-items: flex-end;
+  padding: 1.2rem;
+}
+.gal-card:hover .gal-overlay { opacity: 1; }
+
+/* ─── GetStarted Modal ───────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(13,21,53,0.82);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: overlayIn 0.3s ease;
+  overflow-y: auto;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.4s cubic-bezier(0.25,0.8,0.25,1);
+}
+.modal-box::-webkit-scrollbar { width: 4px; }
+.modal-box::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 2px; }
+
+/* ─── Hero Decorations ───────────────────────────────────── */
+.hero-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.035);
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+.hero-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  animation: rotateSlow linear infinite;
+}
+.float-card {
+  position: absolute;
+  border-radius: 12px;
+  padding: 11px 17px;
+  animation: bob ease-in-out infinite;
+}
+
+/* ─── Checkbox Custom ────────────────────────────────────── */
+.custom-check {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; font-size: 14px; color: #3a4265;
+  padding: 8px 12px; border-radius: 8px;
+  border: 1px solid #dde2ef; background: #fff;
+  transition: border-color 0.22s, background 0.22s;
+  user-select: none;
+}
+.custom-check.checked {
+  border-color: var(--navy);
+  background: rgba(27,43,107,0.05);
+  color: var(--navy);
+}
+.custom-check .check-box {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 2px solid #c0c8e0;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s;
+}
+.custom-check.checked .check-box {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+/* ─── Progress Steps (GetStarted) ───────────────────────── */
+.step-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600;
+  transition: all 0.3s;
+}
+.step-line {
+  flex: 1; height: 2px;
+  background: #dde2ef;
+  transition: background 0.3s;
+}
+.step-line.done { background: var(--navy); }

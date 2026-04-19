@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { SERVICES_DATA } from "./Services";
 
-/**
- * GetStarted – full-screen modal with a 3-step enquiry form.
- * On submission it POSTs to /api/getstarted which sends an email
- * via Nodemailer (see server/index.js).
- *
- * Props:
- *   isOpen   : boolean
- *   onClose  : () => void
- */
-
 const BUDGETS = [
   "Under ৳50,000",
   "৳50,000 – ৳1,00,000",
@@ -43,7 +33,7 @@ const INITIAL_FORM = {
   company:  "",
   position: "",
   // Step 2 – Project details
-  services:  [],   // multi-select
+  services:  [],   
   budget:    "",
   timeline:  "",
   message:   "",

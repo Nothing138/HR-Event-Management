@@ -1,8 +1,3 @@
-/**
- * Home – full-viewport hero section with animated elements.
- * Props:
- *   onGetStarted : () => void
- */
 export default function Home({ onGetStarted }) {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 

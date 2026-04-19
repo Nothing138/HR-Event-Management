@@ -9,11 +9,6 @@ const NAV_ITEMS = [
   { label: "Contact",  id: "contact"  },
 ];
 
-/**
- * Navbar – fixed top bar that becomes solid on scroll.
- * Props:
- *   onGetStarted : () => void  – opens the GetStarted modal
- */
 export default function Navbar({ onGetStarted }) {
   const { scrolled, active } = useNavScroll();
   const [mobileOpen, setMobileOpen] = useState(false);

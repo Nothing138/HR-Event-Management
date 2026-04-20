@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
 
-/**
- * useScrollAnimation
- * Watches elements with data-animid="<unique-id>" attributes.
- * Returns a Set of IDs that have entered the viewport.
- *
- * Usage:
- *   const visible = useScrollAnimation();
- *   <div data-animid="my-block" className={visible.has("my-block") ? "anim-fadeUp" : "anim-hidden"} />
- */
 export function useScrollAnimation(threshold = 0.12) {
   const [visible, setVisible] = useState(new Set());
 
@@ -28,7 +19,6 @@ export function useScrollAnimation(threshold = 0.12) {
       { threshold }
     );
 
-    // Observe all elements with data-animid
     const els = document.querySelectorAll("[data-animid]");
     els.forEach((el) => observer.observe(el));
 
@@ -38,10 +28,6 @@ export function useScrollAnimation(threshold = 0.12) {
   return visible;
 }
 
-/**
- * useCounter
- * Animates a number from 0 → target when `trigger` becomes true.
- */
 export function useCounter(target, trigger) {
   const [count, setCount] = useState(0);
 
@@ -60,10 +46,6 @@ export function useCounter(target, trigger) {
   return count;
 }
 
-/**
- * useNavScroll
- * Returns scrolled state (bool) and the current active section id.
- */
 export function useNavScroll(sections = ["home","about","services","gallery","contact"]) {
   const [scrolled, setScrolled]   = useState(false);
   const [active,   setActive]     = useState("home");

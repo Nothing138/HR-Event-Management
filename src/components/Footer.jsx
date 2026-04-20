@@ -4,11 +4,6 @@ const NAV_LINKS = ["Home", "About", "Services", "Gallery", "Contact"];
 
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-/**
- * Footer – site-wide footer with links, contact info, and copyright.
- * Props:
- *   onGetStarted : () => void
- */
 export default function Footer({ onGetStarted }) {
   return (
     <footer style={{ background: "#0d1535", color: "#a8b4d8" }}>

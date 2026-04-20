@@ -2,47 +2,16 @@ import { useState } from "react";
 import { useScrollAnimation } from "../hooks/useAnimations";
 
 const GALLERY_ITEMS = [
-  {
-    url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80",
-    label: "Strategic Planning Sessions",
-    cat: "Marketing",
-    span: 2,  // grid-column span
-  },
-  {
-    url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&q=80",
-    label: "Corporate Events",
-    cat: "Events",
-    span: 1,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&q=80",
-    label: "Team Training",
-    cat: "Training",
-    span: 1,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80",
-    label: "Recruitment & Talent Drive",
-    cat: "HR",
-    span: 2,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&q=80",
-    label: "Brand Workshops",
-    cat: "Marketing",
-    span: 1,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80",
-    label: "Client Partnerships",
-    cat: "Events",
-    span: 1,
-  },
+  { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80", label: "Strategic Planning Sessions", cat: "Marketing", span: 2 },
+  { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&q=80", label: "Corporate Events", cat: "Events", span: 1 },
+  { url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&q=80", label: "Team Training", cat: "Training", span: 1 },
+  { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80", label: "Recruitment & Talent Drive", cat: "HR", span: 2 },
+  { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&q=80", label: "Brand Workshops", cat: "Marketing", span: 1 },
+  { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80", label: "Client Partnerships", cat: "Events", span: 1 },
 ];
 
 const FILTERS = ["All", "Marketing", "Events", "HR", "Training"];
 
-// ── Lightbox ─────────────────────────────────────────────────
 function Lightbox({ item, onClose }) {
   if (!item) return null;
   return (
@@ -52,7 +21,7 @@ function Lightbox({ item, onClose }) {
         position: "fixed", inset: 0, zIndex: 3000,
         background: "rgba(10,16,46,.92)", backdropFilter: "blur(8px)",
         display: "flex", alignItems: "center", justifyContent: "center",
-        padding: 24, animation: "overlayIn 0.28s ease",
+        padding: 16, animation: "overlayIn 0.28s ease",
       }}
     >
       <div
@@ -64,7 +33,7 @@ function Lightbox({ item, onClose }) {
         }}
       >
         <img
-          src={item.url.replace("w=500", "w=900").replace("w=900", "w=900")}
+          src={item.url}
           alt={item.label}
           style={{ width: "100%", display: "block", maxHeight: "80vh", objectFit: "cover" }}
         />
@@ -95,6 +64,7 @@ export default function Gallery() {
   const visible = useScrollAnimation();
   const [activeFilter, setActiveFilter] = useState("All");
   const [lightboxItem, setLightboxItem] = useState(null);
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth <= 480);
 
   const filtered = activeFilter === "All"
     ? GALLERY_ITEMS
@@ -104,7 +74,6 @@ export default function Gallery() {
     <section id="gallery" style={{ padding: "90px 6%", background: "#F4F6FB" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto" }}>
 
-        {/* ── Header ── */}
         <div data-animid="gal-head" style={{ textAlign: "center", marginBottom: 10 }}>
           <p className="section-label">Our Work</p>
           <h2 className={`section-title ${visible.has("gal-head") ? "anim-fadeUp" : "anim-hidden"}`}>
@@ -116,18 +85,18 @@ export default function Gallery() {
           />
         </div>
 
-        {/* ── Filter tabs ── */}
+        {/* Filters */}
         <div
           data-animid="gal-filters"
           className={visible.has("gal-filters") ? "anim-fadeUp" : "anim-hidden"}
-          style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", margin: "28px 0 36px" }}
+          style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", margin: "28px 0 36px" }}
         >
           {FILTERS.map(f => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
               style={{
-                padding: "8px 22px", borderRadius: 30, fontSize: 13, fontWeight: 500,
+                padding: "8px 18px", borderRadius: 30, fontSize: 13, fontWeight: 500,
                 cursor: "pointer", transition: "all 0.25s", fontFamily: "'DM Sans', sans-serif",
                 background: activeFilter === f ? "#1B2B6B" : "#fff",
                 color: activeFilter === f ? "#fff" : "#4a5270",
@@ -139,8 +108,8 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* ── Masonry grid ── */}
-        <div style={{
+        {/* Grid */}
+        <div className="gal-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           gridAutoRows: "220px",
@@ -160,20 +129,14 @@ export default function Gallery() {
               <img src={item.url} alt={item.label} loading="lazy" />
               <div className="gal-overlay">
                 <div>
-                  <div style={{
-                    color: "#fff", fontWeight: 600, fontSize: 14.5,
-                    fontFamily: "'Cormorant Garamond',serif",
-                  }}>{item.label}</div>
-                  <div style={{ color: "rgba(255,255,255,.65)", fontSize: 12, marginTop: 3 }}>
-                    MH360 · {item.cat}
-                  </div>
+                  <div style={{ color: "#fff", fontWeight: 600, fontSize: 14.5, fontFamily: "'Cormorant Garamond',serif" }}>{item.label}</div>
+                  <div style={{ color: "rgba(255,255,255,.65)", fontSize: 12, marginTop: 3 }}>MH360 · {item.cat}</div>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* ── Empty state ── */}
         {filtered.length === 0 && (
           <div style={{ textAlign: "center", padding: "60px 0", color: "#7b88b8" }}>
             No items in this category yet.
@@ -181,8 +144,29 @@ export default function Gallery() {
         )}
       </div>
 
-      {/* ── Lightbox ── */}
       <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />
+
+      <style>{`
+        @media (max-width: 768px) {
+          #gallery { padding: 60px 4% !important; }
+          .gal-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-auto-rows: 180px !important;
+            gap: 10px !important;
+          }
+          .gal-card { grid-column: span 1 !important; }
+        }
+        @media (max-width: 480px) {
+          #gallery { padding: 60px 5% !important; }
+          .gal-grid {
+            grid-template-columns: 1fr !important;
+            grid-auto-rows: 200px !important;
+            gap: 10px !important;
+          }
+          .gal-card { grid-column: span 1 !important; }
+          .gal-overlay { opacity: 1 !important; }
+        }
+      `}</style>
     </section>
   );
 }

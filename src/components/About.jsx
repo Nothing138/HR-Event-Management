@@ -16,18 +16,13 @@ const VALUES = [
 function StatCard({ stat, triggered }) {
   const count = useCounter(stat.count, triggered);
   return (
-    <div
-      style={{
-        background: "#fff", borderRadius: 14, padding: "24px 20px",
-        boxShadow: "0 4px 22px rgba(27,43,107,.07)",
-        border: "1px solid rgba(27,43,107,.06)", textAlign: "center",
-      }}
-    >
+    <div style={{
+      background: "#fff", borderRadius: 14, padding: "24px 20px",
+      boxShadow: "0 4px 22px rgba(27,43,107,.07)",
+      border: "1px solid rgba(27,43,107,.06)", textAlign: "center",
+    }}>
       <div style={{ fontSize: 27, marginBottom: 9 }}>{stat.icon}</div>
-      <div
-        className="display-font"
-        style={{ fontWeight: 700, fontSize: "3rem", color: "#1B2B6B", lineHeight: 1 }}
-      >
+      <div className="display-font" style={{ fontWeight: 700, fontSize: "3rem", color: "#1B2B6B", lineHeight: 1 }}>
         {count}{stat.suffix}
       </div>
       <div style={{ color: "#7b88b8", fontSize: 12.5, marginTop: 6, fontWeight: 500 }}>{stat.label}</div>
@@ -41,16 +36,15 @@ export default function About() {
   return (
     <section id="about" style={{ padding: "90px 6%", background: "#F4F6FB" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-        <div style={{
+        <div className="about-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 76,
           alignItems: "center",
         }}>
 
-          {/* ── LEFT – Copy ── */}
+          {/* LEFT */}
           <div>
-            {/* Heading */}
             <div data-animid="about-head">
               <p className="section-label">Who We Are</p>
               <h2 className={`section-title ${visible.has("about-head") ? "anim-fadeLeft" : "anim-hidden"}`}>
@@ -59,7 +53,6 @@ export default function About() {
               <div className={`section-divider ${visible.has("about-head") ? "grow" : ""}`} />
             </div>
 
-            {/* Body text */}
             <p
               data-animid="about-p1"
               className={visible.has("about-p1") ? "anim-fadeLeft" : "anim-hidden"}
@@ -78,7 +71,6 @@ export default function About() {
               360° perspective to every challenge your business faces.
             </p>
 
-            {/* Value checkmarks */}
             <div
               data-animid="about-vals"
               className={visible.has("about-vals") ? "anim-fadeLeft" : "anim-hidden"}
@@ -98,11 +90,11 @@ export default function About() {
             </div>
           </div>
 
-          {/* ── RIGHT – Stats + Quote ── */}
+          {/* RIGHT */}
           <div>
-            {/* 2×2 stat cards */}
             <div
               data-animid="about-stats"
+              className="about-stats-grid"
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}
             >
               {STATS.map((stat, i) => (
@@ -116,7 +108,6 @@ export default function About() {
               ))}
             </div>
 
-            {/* Quote block */}
             <div
               data-animid="about-quote"
               className={visible.has("about-quote") ? "anim-fadeRight" : "anim-hidden"}
@@ -128,10 +119,7 @@ export default function About() {
                 padding: "22px 26px",
               }}
             >
-              <p
-                className="display-font"
-                style={{ fontStyle: "italic", color: "#fff", fontSize: "1.3rem", lineHeight: 1.6, marginBottom: 16 }}
-              >
+              <p className="display-font" style={{ fontStyle: "italic", color: "#fff", fontSize: "1.3rem", lineHeight: 1.6, marginBottom: 16 }}>
                 "One Agency. 360° Solution. We grow with you."
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
@@ -149,6 +137,22 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .about-grid {
+            grid-template-columns: 1fr !important;
+            gap: 48px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .about-stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px !important;
+          }
+          #about { padding: 60px 5% !important; }
+        }
+      `}</style>
     </section>
   );
 }

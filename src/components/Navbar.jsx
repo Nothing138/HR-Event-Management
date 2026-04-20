@@ -21,7 +21,7 @@ export default function Navbar({ onGetStarted }) {
   return (
     <>
       <nav className={`navbar ${scrolled ? "navbar-scrolled" : "navbar-transparent"}`}>
-        {/* ── Logo ── */}
+        {/* Logo */}
         <div
           onClick={() => scrollTo("home")}
           style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
@@ -30,6 +30,7 @@ export default function Navbar({ onGetStarted }) {
             width: 38, height: 38, borderRadius: "50%",
             border: "2.5px solid #C0392B",
             display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0,
           }}>
             <span className="display-font" style={{ fontWeight: 700, fontSize: 13, color: "#fff" }}>MH</span>
           </div>
@@ -38,8 +39,8 @@ export default function Navbar({ onGetStarted }) {
           </span>
         </div>
 
-        {/* ── Desktop Links ── */}
-        <div style={{ display: "flex", gap: 34, alignItems: "center" }} className="hidden md:flex">
+        {/* Desktop Links */}
+        <div className="nav-desktop" style={{ display: "flex", gap: 34, alignItems: "center" }}>
           {NAV_ITEMS.map(({ label, id }) => (
             <button
               key={id}
@@ -64,37 +65,42 @@ export default function Navbar({ onGetStarted }) {
           </button>
         </div>
 
-        {/* ── Hamburger ── */}
+        {/* Hamburger */}
         <button
           onClick={() => setMobileOpen(o => !o)}
+          className="nav-hamburger"
           style={{
             background: "none", border: "none", color: "#fff",
             fontSize: 26, cursor: "pointer", lineHeight: 1,
+            display: "none",
           }}
-          className="block md:hidden"
           aria-label="Toggle menu"
         >
           {mobileOpen ? "✕" : "☰"}
         </button>
       </nav>
 
-      {/* ── Mobile Drawer ── */}
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div style={{
-          position: "fixed", top: 68, left: 0, right: 0,
-          background: "rgba(27,43,107,0.97)", backdropFilter: "blur(12px)",
+          position: "fixed", top: 60, left: 0, right: 0,
+          background: "rgba(27,43,107,0.98)", backdropFilter: "blur(12px)",
           padding: "1.5rem 2rem", zIndex: 999,
           display: "flex", flexDirection: "column", gap: "1rem",
           animation: "fadeUp 0.28s ease",
+          borderTop: "1px solid rgba(255,255,255,0.1)",
         }}>
           {NAV_ITEMS.map(({ label, id }) => (
             <button
               key={id}
               onClick={() => scrollTo(id)}
               style={{
-                background: "none", border: "none", color: "#fff",
+                background: "none", border: "none", color: active === id ? "#C0392B" : "#fff",
                 fontSize: 16, fontWeight: 500, cursor: "pointer",
                 textAlign: "left", fontFamily: "'DM Sans', sans-serif",
+                padding: "4px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.07)",
+                paddingBottom: "12px",
               }}
             >
               {label}
@@ -105,10 +111,20 @@ export default function Navbar({ onGetStarted }) {
             className="btn-primary"
             style={{ marginTop: 8, width: "fit-content" }}
           >
-            Get Started
+            Get Started →
           </button>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-desktop { display: none !important; }
+          .nav-hamburger { display: flex !important; align-items: center; justify-content: center; }
+        }
+        @media (min-width: 769px) {
+          .nav-hamburger { display: none !important; }
+        }
+      `}</style>
     </>
   );
 }

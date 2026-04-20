@@ -52,11 +52,7 @@ export default function Services() {
     <section id="services" style={{ padding: "90px 6%", background: "#fff" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto" }}>
 
-        {/* ── Section header ── */}
-        <div
-          data-animid="srv-head"
-          style={{ textAlign: "center", marginBottom: 60 }}
-        >
+        <div data-animid="srv-head" style={{ textAlign: "center", marginBottom: 60 }}>
           <p className="section-label">What We Offer</p>
           <h2 className={`section-title ${visible.has("srv-head") ? "anim-fadeUp" : "anim-hidden"}`}>
             Our Core Services
@@ -77,10 +73,9 @@ export default function Services() {
           </p>
         </div>
 
-        {/* ── Cards grid ── */}
-        <div style={{
+        <div className="srv-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: 22,
         }}>
           {SERVICES_DATA.map((svc, i) => (
@@ -90,31 +85,18 @@ export default function Services() {
               className={`srv-card ${visible.has(`srv-${i}`) ? "anim-scaleIn" : "anim-hidden"}`}
               style={{ animationDelay: `${i * 0.08}s` }}
             >
-              {/* Icon */}
               <div className="srv-icon-wrap">{svc.icon}</div>
-
-              {/* Tag badge */}
               <span style={{
                 fontSize: 10.5, fontWeight: 600, letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "#1B2B6B",
+                textTransform: "uppercase", color: "#1B2B6B",
                 background: "rgba(27,43,107,0.08)",
                 padding: "3px 10px", borderRadius: 20,
                 marginBottom: 10, display: "inline-block",
               }}>{svc.tag}</span>
-
-              {/* Title */}
-              <h3
-                className="display-font"
-                style={{ fontSize: "1.2rem", fontWeight: 600, color: "#1B2B6B", marginBottom: 9, lineHeight: 1.3, marginTop: 6 }}
-              >
+              <h3 className="display-font" style={{ fontSize: "1.2rem", fontWeight: 600, color: "#1B2B6B", marginBottom: 9, lineHeight: 1.3, marginTop: 6 }}>
                 {svc.title}
               </h3>
-
-              {/* Description */}
               <p style={{ color: "#6070a0", fontSize: 14, lineHeight: 1.77 }}>{svc.desc}</p>
-
-              {/* Learn more link */}
               <div
                 style={{
                   marginTop: 20, display: "flex", alignItems: "center", gap: 5,
@@ -130,6 +112,17 @@ export default function Services() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          #services { padding: 60px 4% !important; }
+          .srv-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important; gap: 16px !important; }
+        }
+        @media (max-width: 480px) {
+          #services { padding: 60px 5% !important; }
+          .srv-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+        }
+      `}</style>
     </section>
   );
 }

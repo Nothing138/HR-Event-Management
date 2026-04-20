@@ -1,15 +1,13 @@
 import { SERVICES_DATA } from "./Services";
 
 const NAV_LINKS = ["Home", "About", "Services", "Gallery", "Contact"];
-
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
 export default function Footer({ onGetStarted }) {
   return (
     <footer style={{ background: "#0d1535", color: "#a8b4d8" }}>
-      {/* ── Main footer grid ── */}
       <div style={{ padding: "60px 6% 0", maxWidth: 1140, margin: "0 auto" }}>
-        <div style={{
+        <div className="footer-grid" style={{
           display: "grid",
           gridTemplateColumns: "2fr 1fr 1.3fr 1.6fr",
           gap: 44,
@@ -17,7 +15,7 @@ export default function Footer({ onGetStarted }) {
           borderBottom: "1px solid rgba(255,255,255,.07)",
         }}>
 
-          {/* Col 1 – Brand */}
+          {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
               <div style={{
@@ -35,68 +33,42 @@ export default function Footer({ onGetStarted }) {
             <div style={{ fontSize: 13.5, marginBottom: 8 }}>📍 Sylhet, Bangladesh</div>
             <div style={{ fontSize: 13.5, marginBottom: 8 }}>📞 01711086055</div>
             <div style={{ fontSize: 13.5, wordBreak: "break-all" }}>✉️ mh360syl@gmail.com</div>
-
-            {/* Get Started CTA */}
-            <button
-              onClick={onGetStarted}
-              className="btn-primary"
-              style={{ marginTop: 22, fontSize: 12.5, padding: "10px 24px" }}
-            >
+            <button onClick={onGetStarted} className="btn-primary" style={{ marginTop: 22, fontSize: 12.5, padding: "10px 24px" }}>
               Get Started →
             </button>
           </div>
 
-          {/* Col 2 – Navigation */}
+          {/* Navigation */}
           <div>
-            <div style={{
-              color: "#fff", fontWeight: 600, fontSize: 13,
-              letterSpacing: "0.08em", textTransform: "uppercase",
-              marginBottom: 20,
-            }}>
+            <div style={{ color: "#fff", fontWeight: 600, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 20 }}>
               Navigation
             </div>
             {NAV_LINKS.map(n => (
               <div
                 key={n}
                 onClick={() => scrollTo(n.toLowerCase())}
-                style={{
-                  marginBottom: 11, fontSize: 13.5, cursor: "pointer",
-                  transition: "color 0.2s",
-                }}
+                style={{ marginBottom: 11, fontSize: 13.5, cursor: "pointer", transition: "color 0.2s" }}
                 onMouseEnter={e => e.target.style.color = "#fff"}
                 onMouseLeave={e => e.target.style.color = "#a8b4d8"}
-              >
-                {n}
-              </div>
+              >{n}</div>
             ))}
           </div>
 
-          {/* Col 3 – Services */}
+          {/* Services */}
           <div>
-            <div style={{
-              color: "#fff", fontWeight: 600, fontSize: 13,
-              letterSpacing: "0.08em", textTransform: "uppercase",
-              marginBottom: 20,
-            }}>
+            <div style={{ color: "#fff", fontWeight: 600, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 20 }}>
               Our Services
             </div>
             {SERVICES_DATA.map(s => (
-              <div
-                key={s.title}
-                style={{ marginBottom: 10, fontSize: 13, lineHeight: 1.5, color: "#a8b4d8" }}
-              >
+              <div key={s.title} style={{ marginBottom: 10, fontSize: 13, lineHeight: 1.5, color: "#a8b4d8" }}>
                 {s.title}
               </div>
             ))}
           </div>
 
-          {/* Col 4 – Office hours + Social placeholder */}
+          {/* Hours */}
           <div>
-            <div style={{
-              color: "#fff", fontWeight: 600, fontSize: 13,
-              letterSpacing: "0.08em", textTransform: "uppercase",
-              marginBottom: 20,
-            }}>
+            <div style={{ color: "#fff", fontWeight: 600, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 20 }}>
               Business Hours
             </div>
             {[
@@ -109,8 +81,6 @@ export default function Footer({ onGetStarted }) {
                 <div style={{ fontSize: 12.5, color: "#7b88b8" }}>{hrs}</div>
               </div>
             ))}
-
-            {/* Tagline */}
             <div style={{
               marginTop: 22, padding: "14px 16px",
               background: "rgba(192,57,43,0.12)", borderRadius: 8,
@@ -123,7 +93,6 @@ export default function Footer({ onGetStarted }) {
           </div>
         </div>
 
-        {/* ── Footer bottom bar ── */}
         <div style={{
           padding: "20px 0",
           display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -131,10 +100,27 @@ export default function Footer({ onGetStarted }) {
         }}>
           <span>© {new Date().getFullYear()} MH360. All rights reserved.</span>
           <span style={{ color: "#556080" }}>
-            One Agency &nbsp;·&nbsp; 360° Solution &nbsp;·&nbsp; Designed in Sylhet ❤️
+            One Agency &nbsp;·&nbsp; 360° Solution &nbsp;·&nbsp; Designed in <a href="https://smithitbd.com/">Smith IT</a>
           </span>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 32px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+          }
+          footer { padding: 0; }
+          footer > div { padding: 40px 5% 0 !important; }
+        }
+      `}</style>
     </footer>
   );
 }

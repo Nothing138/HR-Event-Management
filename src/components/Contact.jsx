@@ -10,9 +10,8 @@ const CONTACT_INFO = [
 
 export default function Contact() {
   const visible = useScrollAnimation();
-
   const [form, setForm]     = useState({ name: "", email: "", phone: "", service: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle");
 
   const set = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }));
 
@@ -20,36 +19,31 @@ export default function Contact() {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
     setStatus("sending");
-
     try {
       const res = await fetch("/api/contact", {
-        method:  "POST",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify(form),
+        body: JSON.stringify(form),
       });
       if (res.ok) {
         setStatus("success");
         setForm({ name: "", email: "", phone: "", service: "", message: "" });
         setTimeout(() => setStatus("idle"), 5000);
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
+      } else { setStatus("error"); }
+    } catch { setStatus("error"); }
   };
 
   return (
     <section id="contact" style={{ padding: "90px 6%", background: "#fff" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{
+        <div className="contact-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1.45fr",
           gap: 68,
           alignItems: "start",
         }}>
 
-          {/* ── LEFT – Info ── */}
+          {/* LEFT */}
           <div>
             <div data-animid="ct-head">
               <p className="section-label">Get In Touch</p>
@@ -87,7 +81,6 @@ export default function Contact() {
               </div>
             ))}
 
-            {/* Quote strip */}
             <div
               data-animid="ct-quote"
               className={visible.has("ct-quote") ? "anim-fadeLeft" : "anim-hidden"}
@@ -103,11 +96,8 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* ── RIGHT – Form ── */}
-          <div
-            data-animid="ct-form"
-            className={visible.has("ct-form") ? "anim-fadeRight" : "anim-hidden"}
-          >
+          {/* RIGHT – Form */}
+          <div data-animid="ct-form" className={visible.has("ct-form") ? "anim-fadeRight" : "anim-hidden"}>
             {status === "success" ? (
               <div style={{
                 background: "linear-gradient(135deg,#e8f5e9,#f1f8e9)",
@@ -128,7 +118,7 @@ export default function Contact() {
                 </h3>
 
                 <form onSubmit={handleSubmit}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
+                  <div className="form-row-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
                     <div>
                       <label className="form-label">Full Name *</label>
                       <input className="form-input" placeholder="John Doe" value={form.name} onChange={set("name")} required />
@@ -139,7 +129,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
+                  <div className="form-row-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
                     <div>
                       <label className="form-label">Phone</label>
                       <input className="form-input" placeholder="01711000000" value={form.phone} onChange={set("phone")} />
@@ -186,6 +176,19 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          #contact { padding: 60px 5% !important; }
+          .form-row-2 { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }

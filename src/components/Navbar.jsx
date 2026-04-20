@@ -9,10 +9,6 @@ const NAV_ITEMS = [
   { label: "Contact",  id: "contact"  },
 ];
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 32281cf7bb4627f053d8ff333b9d4eda05821f21
 export default function Navbar({ onGetStarted }) {
   const { scrolled, active } = useNavScroll();
   const [mobileOpen, setMobileOpen] = useState(false);

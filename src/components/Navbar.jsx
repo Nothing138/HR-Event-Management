@@ -9,11 +9,7 @@ const NAV_ITEMS = [
   { label: "Contact",  id: "contact"  },
 ];
 
-/**
- * Navbar – fixed top bar that becomes solid on scroll.
- * Props:
- *   onGetStarted : () => void  – opens the GetStarted modal
- */
+
 export default function Navbar({ onGetStarted }) {
   const { scrolled, active } = useNavScroll();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,10 +21,7 @@ export default function Navbar({ onGetStarted }) {
 
   return (
     <>
-      <nav
-        className="navbar"
-        style={{ background: scrolled ? undefined : "transparent" }}
-      >
+      <nav className={`navbar ${scrolled ? "navbar-scrolled" : "navbar-transparent"}`}>
         {/* ── Logo ── */}
         <div
           onClick={() => scrollTo("home")}

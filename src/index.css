@@ -243,6 +243,15 @@ body {
   background: var(--crimson);
   transition: width 0.3s ease;
 }
+
+.navbar-transparent {
+    background: transparent;
+}
+
+.navbar-scrolled {
+    background: #000080; 
+    transition: background 0.3s ease; 
+}
 .nav-link:hover, .nav-link.active { color: #fff; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 

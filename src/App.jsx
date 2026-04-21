@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 
-import Navbar      from "./components/Navbar";
-import Home        from "./components/Home";
-import About       from "./components/About";
-import Services    from "./components/Services";
-import Gallery     from "./components/Gallery";
-import Contact     from "./components/Contact";
-import GetStarted  from "./components/GetStarted";
-import Footer      from "./components/Footer";
+import Navbar     from "./components/Navbar";
+import Footer     from "./components/Footer";
+import GetStarted from "./components/GetStarted";
+
+import HomePage    from "./pages/HomePage";
+import AboutPage   from "./pages/AboutPage";
+import ServicesPage from "./pages/ServicesPage";
+import GalleryPage from "./pages/GalleryPage";
+import ContactPage from "./pages/ContactPage";
 
 export default function App() {
   const [getStartedOpen, setGetStartedOpen] = useState(false);
@@ -17,24 +19,19 @@ export default function App() {
   const closeGetStarted = () => setGetStartedOpen(false);
 
   return (
-    <>
-      {/* ── Fixed Navigation ── */}
+    <BrowserRouter>
       <Navbar onGetStarted={openGetStarted} />
 
-      {/* ── Main Sections ── */}
-      <main>
-        <Home       onGetStarted={openGetStarted} />
-        <About />
-        <Services />
-        <Gallery />
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/"         element={<HomePage    onGetStarted={openGetStarted} />} />
+        <Route path="/about"    element={<AboutPage   onGetStarted={openGetStarted} />} />
+        <Route path="/services" element={<ServicesPage onGetStarted={openGetStarted} />} />
+        <Route path="/gallery"  element={<GalleryPage  onGetStarted={openGetStarted} />} />
+        <Route path="/contact"  element={<ContactPage />} />
+      </Routes>
 
-      {/* ── Footer ── */}
       <Footer onGetStarted={openGetStarted} />
-
-      {/* ── Get Started Modal (portal-like overlay) ── */}
       <GetStarted isOpen={getStartedOpen} onClose={closeGetStarted} />
-    </>
+    </BrowserRouter>
   );
 }
